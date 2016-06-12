@@ -20,6 +20,7 @@ class CalculatorBrain {
         case UnaryOperation((Double) -> Double)
         case BinaryOperation((Double, Double) -> Double)
         case Equals
+        case Clear
     }
     
     private var operationDic: Dictionary<String, Operation> = [
@@ -35,8 +36,12 @@ class CalculatorBrain {
         "×"     : Operation.BinaryOperation({ $0 * $1 }),
         "−"     : Operation.BinaryOperation({ $0 - $1 }),
         "+"     : Operation.BinaryOperation({ $0 + $1 }),
-        "="     : Operation.Equals
+        "="     : Operation.Equals,
+        "AC"    : Operation.Clear
     ]
+    
+    // avoid double touch + to execute twice
+    private var lastIsBinaryOp = false
     
     func operate(symbol : String) {
         if let operation = operationDic[symbol] {
@@ -47,9 +52,13 @@ class CalculatorBrain {
                 accumulator = foo(accumulator)
             case .BinaryOperation(let foo):
                 executePendingOperation()
-                pendingInfo = PendingBinaryOperation(binaryFunc: foo, firstOperand: accumulator)
+                pendingInfo = PendingBinaryOperation(binaryFunc: foo,
+                                                     firstOperand: accumulator)
             case .Equals:
                 executePendingOperation()
+            case .Clear:
+                accumulator = 0.0
+                pendingInfo = nil
             }
         }
     }
@@ -62,7 +71,8 @@ class CalculatorBrain {
     
     private func executePendingOperation() {
         if pendingInfo != nil {
-            accumulator = pendingInfo!.binaryFunc((pendingInfo!.firstOperand), accumulator)
+            accumulator = pendingInfo!.binaryFunc(pendingInfo!.firstOperand,
+                                                  accumulator)
             pendingInfo = nil
         }
     }
