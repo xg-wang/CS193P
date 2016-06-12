@@ -29,7 +29,7 @@ class ViewController: UIViewController {
                 userIsTyping = true
             }
         }
-        else if userIsTyping {
+        else if userIsTyping && display.text != "0" {
             display.text! += digit
         } else {
             display.text = digit
