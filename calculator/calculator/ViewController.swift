@@ -10,11 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    override func viewDidLoad() {
-        formatter.maximumFractionDigits = 6
-        formatter.minimumIntegerDigits = 1
-    }
-    
     private var formatter = NSNumberFormatter()
     private var userIsTyping = false
     private var digitIndecimalpoint = false
@@ -48,6 +43,8 @@ class ViewController: UIViewController {
             return Double(display.text!)!
         }
         set {
+            formatter.maximumFractionDigits = 6
+            formatter.minimumIntegerDigits = 1
             display.text = formatter.stringFromNumber(newValue)
         }
     }

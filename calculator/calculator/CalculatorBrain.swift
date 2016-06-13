@@ -9,10 +9,14 @@
 import Foundation
 
 class CalculatorBrain {
+    
+    private var internalProgram = [AnyObject]()
+    
     private var accumulator = 0.0
     
     func setOperand(operand : Double) {
         accumulator = operand
+        internalProgram.append(operand)
     }
     
     enum Operation {
@@ -21,6 +25,8 @@ class CalculatorBrain {
         case BinaryOperation((Double, Double) -> Double)
         case Equals
         case Clear
+        case Save
+        case Restore
     }
     
     private var operationDic: Dictionary<String, Operation> = [
@@ -37,13 +43,16 @@ class CalculatorBrain {
         "−"     : Operation.BinaryOperation({ $0 - $1 }),
         "+"     : Operation.BinaryOperation({ $0 + $1 }),
         "="     : Operation.Equals,
-        "AC"    : Operation.Clear
+        "AC"    : Operation.Clear,
+        "S"     : Operation.Save,
+        "R"     : Operation.Restore
     ]
     
     // avoid double touch + to execute twice
     private var lastIsBinaryOp = false
     
     func operate(symbol : String) {
+        internalProgram.append(symbol)
         if let operation = operationDic[symbol] {
             switch operation {
             case .Constant(let cons):
@@ -57,8 +66,11 @@ class CalculatorBrain {
             case .Equals:
                 executePendingOperation()
             case .Clear:
-                accumulator = 0.0
-                pendingInfo = nil
+                clear()
+            case .Save:
+                savedProgram = program
+            case .Restore:
+                program = savedProgram!
             }
         }
     }
@@ -75,6 +87,34 @@ class CalculatorBrain {
                                                   accumulator)
             pendingInfo = nil
         }
+    }
+    
+    typealias PropertyList = AnyObject
+    
+    private var savedProgram: PropertyList?
+    
+    var program: PropertyList {
+        get {
+            return internalProgram
+        }
+        set {
+            clear()
+            if let arrayOfOps = newValue as? [AnyObject] {
+                for op in arrayOfOps {
+                    if let operand = op as? Double {
+                        setOperand(operand)
+                    } else if let operation = op as? String {
+                        operate(operation)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func clear() {
+        accumulator = 0.0
+        pendingInfo = nil
+        internalProgram.removeAll()
     }
     
     var result: Double {
