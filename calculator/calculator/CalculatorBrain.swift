@@ -10,13 +10,42 @@ import Foundation
 
 class CalculatorBrain {
     
-    private var internalProgram = [AnyObject]()
+    init() {
+        _formatter.maximumFractionDigits = 6
+        _formatter.minimumFractionDigits = 0
+        _formatter.minimumIntegerDigits = 1
+    }
     
-    private var accumulator = 0.0
+    private var _formatter = NSNumberFormatter()
+    
+    private var _internalProgram = [AnyObject]()
+    
+    private var _accumulator = 0.0
+    
+    private var _descArray = [String]()
+    
+    var description: String {
+        var ret = ""
+        for desc in _descArray {
+            ret += desc
+        }
+        return ret
+    }
+    
+    /**
+        - Returns **true** if there is pendingInfo
+    */
+    var isPartialResult: Bool {
+        return pendingInfo != nil
+    }
     
     func setOperand(operand : Double) {
-        accumulator = operand
-        internalProgram.append(operand)
+        _accumulator = operand
+        _internalProgram.append(operand)
+        if pendingInfo == nil {
+            _descArray.removeAll()
+        }
+        _descArray.append(_formatter.stringFromNumber(operand)!)
     }
     
     enum Operation {
@@ -48,21 +77,30 @@ class CalculatorBrain {
         "R"     : Operation.Restore
     ]
     
-    // avoid double touch + to execute twice
-    private var lastIsBinaryOp = false
-    
     func operate(symbol : String) {
-        internalProgram.append(symbol)
+        _internalProgram.append(symbol)
         if let operation = operationDic[symbol] {
             switch operation {
             case .Constant(let cons):
-                accumulator = cons
+                _accumulator = cons
+                _descArray.append(symbol)
             case .UnaryOperation(let foo):
-                accumulator = foo(accumulator)
+                _accumulator = foo(_accumulator)
+                if pendingInfo != nil {
+                    _descArray.insert(symbol, atIndex: _descArray.endIndex-1)
+                    _descArray.insert("(", atIndex: _descArray.endIndex-1)
+                    _descArray.append(")")
+                } else {
+                    _descArray.insert(symbol, atIndex: 0)
+                    _descArray.insert("(", atIndex: 1)
+                    _descArray.append(")")
+                }
+                
             case .BinaryOperation(let foo):
                 executePendingOperation()
                 pendingInfo = PendingBinaryOperation(binaryFunc: foo,
-                                                     firstOperand: accumulator)
+                                                     firstOperand: _accumulator)
+                _descArray.append(symbol)
             case .Equals:
                 executePendingOperation()
             case .Clear:
@@ -83,8 +121,15 @@ class CalculatorBrain {
     
     private func executePendingOperation() {
         if pendingInfo != nil {
-            accumulator = pendingInfo!.binaryFunc(pendingInfo!.firstOperand,
-                                                  accumulator)
+            // when two continuous operation occurs, 
+            // append the accumulator again.
+            let endSymbol = _descArray[_descArray.endIndex-1]
+            if Double(endSymbol) == nil && endSymbol != "π" {
+                _descArray.append(_formatter.stringFromNumber(_accumulator)!)
+            }
+            
+            _accumulator = pendingInfo!.binaryFunc(pendingInfo!.firstOperand,
+                                                  _accumulator)
             pendingInfo = nil
         }
     }
@@ -95,7 +140,7 @@ class CalculatorBrain {
     
     var program: PropertyList {
         get {
-            return internalProgram
+            return _internalProgram
         }
         set {
             clear()
@@ -112,14 +157,15 @@ class CalculatorBrain {
     }
     
     private func clear() {
-        accumulator = 0.0
+        _accumulator = 0.0
         pendingInfo = nil
-        internalProgram.removeAll()
+        _internalProgram.removeAll()
+        _descArray.removeAll()
     }
     
     var result: Double {
         get {
-            return accumulator
+            return _accumulator
         }
     }
 }

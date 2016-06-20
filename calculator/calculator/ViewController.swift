@@ -10,10 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    private var formatter = NSNumberFormatter()
+    private var _formatter = NSNumberFormatter()
+    
     private var userIsTyping = false
+    
     private var digitIndecimalpoint = false
     
+    @IBOutlet weak var desc: UILabel!
     @IBOutlet weak private var display: UILabel!
     
     @IBAction private func touchDigit(sender: UIButton) {
@@ -36,6 +39,7 @@ class ViewController: UIViewController {
             display.text = digit
             userIsTyping = true
         }
+        _update()
     }
 
     private var displayValue : Double {
@@ -43,9 +47,9 @@ class ViewController: UIViewController {
             return Double(display.text!)!
         }
         set {
-            formatter.maximumFractionDigits = 6
-            formatter.minimumIntegerDigits = 1
-            display.text = formatter.stringFromNumber(newValue)
+            _formatter.maximumFractionDigits = 6
+            _formatter.minimumIntegerDigits = 1
+            display.text = _formatter.stringFromNumber(newValue)
         }
     }
     
@@ -61,6 +65,15 @@ class ViewController: UIViewController {
             brain.operate(symbol)
         }
         displayValue = brain.result
+        _update()
+    }
+    
+    private func _update() {
+        if brain.description.isEmpty {
+            desc.text = " "
+        } else {
+            desc.text = brain.description + (brain.isPartialResult ? "..." : " =")
+        }
     }
     
 }
