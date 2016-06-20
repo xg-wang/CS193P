@@ -124,10 +124,16 @@ class CalculatorBrain {
             // when two continuous operation occurs, 
             // append the accumulator again.
             let endSymbol = _descArray[_descArray.endIndex-1]
-            if Double(endSymbol) == nil && endSymbol != "π" {
-                _descArray.append(_formatter.stringFromNumber(_accumulator)!)
+            if endSymbol != ")" && Double(endSymbol) == nil{
+                if let operation = operationDic[endSymbol] {
+                    switch operation {
+                    case .Constant:
+                        break
+                    default:
+                        _descArray.append(_formatter.stringFromNumber(_accumulator)!)
+                    }
+                }
             }
-            
             _accumulator = pendingInfo!.binaryFunc(pendingInfo!.firstOperand,
                                                   _accumulator)
             pendingInfo = nil
