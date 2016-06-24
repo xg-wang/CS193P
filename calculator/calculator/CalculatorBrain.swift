@@ -39,7 +39,23 @@ class CalculatorBrain {
         return pendingInfo != nil
     }
     
-    func setOperand(operand : Double) {
+    func setOperand(variableName: String) {
+        // set variable as 0.0 if not exists
+        let variable = variableValues[variableName] ?? 0.0
+        _accumulator = variable
+        if pendingInfo == nil {
+            _descArray.removeAll()
+        }
+        _descArray.append(variableName)
+    }
+    var variableValues: Dictionary<String, Double> = [:] {
+        // refresh to urilize the newly set variable
+        didSet{
+            program = _internalProgram
+        }
+    }
+    
+    func setOperand(operand: Double) {
         _accumulator = operand
         _internalProgram.append(operand)
         if pendingInfo == nil {
@@ -56,6 +72,7 @@ class CalculatorBrain {
         case Clear
         case Save
         case Restore
+        case CallMemory(String)
     }
     
     private var operationDic: Dictionary<String, Operation> = [
@@ -74,7 +91,8 @@ class CalculatorBrain {
         "="     : Operation.Equals,
         "AC"    : Operation.Clear,
         "S"     : Operation.Save,
-        "R"     : Operation.Restore
+        "R"     : Operation.Restore,
+        "M"     : Operation.CallMemory("M")
     ]
     
     func operate(symbol : String) {
@@ -95,7 +113,6 @@ class CalculatorBrain {
                     _descArray.insert("(", atIndex: 1)
                     _descArray.append(")")
                 }
-                
             case .BinaryOperation(let foo):
                 executePendingOperation()
                 pendingInfo = PendingBinaryOperation(binaryFunc: foo,
@@ -109,6 +126,8 @@ class CalculatorBrain {
                 savedProgram = program
             case .Restore:
                 program = savedProgram!
+            case .CallMemory(let variable):
+                setOperand(variable)
             }
         }
     }
@@ -124,7 +143,7 @@ class CalculatorBrain {
             // when two continuous operation occurs, 
             // append the accumulator again.
             let endSymbol = _descArray[_descArray.endIndex-1]
-            if endSymbol != ")" && Double(endSymbol) == nil{
+            if endSymbol != ")" && endSymbol != "M" && Double(endSymbol) == nil {
                 if let operation = operationDic[endSymbol] {
                     switch operation {
                     case .Constant:

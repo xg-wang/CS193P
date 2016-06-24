@@ -68,6 +68,23 @@ class ViewController: UIViewController {
         _update()
     }
     
+    // TODO: reduce this!
+    @IBAction func callMemory(sender: UIButton) {
+        performOperation(sender)
+    }
+    @IBAction func setMemory(sender: UIButton) {
+        // set variable value to current display
+        var varName = sender.currentTitle!
+        if varName.hasPrefix("→") {
+            varName.removeAtIndex(varName.startIndex)
+        }
+        brain.variableValues[varName] = displayValue
+        // shows the brain’s result in the display.
+        displayValue = brain.result
+        _update()
+    }
+    
+    
     private func _update() {
         if brain.description.isEmpty {
             desc.text = " "
