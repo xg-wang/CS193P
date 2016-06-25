@@ -73,6 +73,9 @@ class ViewController: UIViewController {
         performOperation(sender)
     }
     @IBAction func setMemory(sender: UIButton) {
+        // set these to false to avoid setting operand again
+        userIsTyping = false
+        digitIndecimalpoint = false
         // set variable value to current display
         var varName = sender.currentTitle!
         if varName.hasPrefix("→") {
@@ -86,10 +89,11 @@ class ViewController: UIViewController {
     
     
     private func _update() {
-        if brain.description.isEmpty {
+        let brainDescString = brain.description
+        if brainDescString.isEmpty {
             desc.text = " "
         } else {
-            desc.text = brain.description + (brain.isPartialResult ? "..." : " =")
+            desc.text = brainDescString + (brain.isPartialResult ? "..." : " =")
         }
     }
     
