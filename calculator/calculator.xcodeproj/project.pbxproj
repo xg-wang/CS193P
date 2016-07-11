@@ -16,6 +16,7 @@
 		531FD77E1D0AEAB400645DC4 /* calculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FD77D1D0AEAB400645DC4 /* calculatorUITests.swift */; };
 		531FD78C1D0AF2A200645DC4 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FD78B1D0AF2A200645DC4 /* CalculatorBrain.swift */; };
 		53295AE61D30CB2000EDF0C2 /* AxesDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53295AE51D30CB2000EDF0C2 /* AxesDrawer.swift */; };
+		53295AED1D33AE2500EDF0C2 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53295AEC1D33AE2500EDF0C2 /* GraphViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		531FD77F1D0AEAB400645DC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		531FD78B1D0AF2A200645DC4 /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 		53295AE51D30CB2000EDF0C2 /* AxesDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxesDrawer.swift; sourceTree = "<group>"; };
+		53295AEC1D33AE2500EDF0C2 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				531FD75F1D0AEAB400645DC4 /* CalculatorViewController.swift */,
 				531FD78B1D0AF2A200645DC4 /* CalculatorBrain.swift */,
 				531FD7611D0AEAB400645DC4 /* Main.storyboard */,
+				53295AEC1D33AE2500EDF0C2 /* GraphViewController.swift */,
 				53295AE71D32216800EDF0C2 /* SupportingFiles */,
 			);
 			path = calculator;
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				531FD78C1D0AF2A200645DC4 /* CalculatorBrain.swift in Sources */,
+				53295AED1D33AE2500EDF0C2 /* GraphViewController.swift in Sources */,
 				53295AE61D30CB2000EDF0C2 /* AxesDrawer.swift in Sources */,
 				531FD7601D0AEAB400645DC4 /* CalculatorViewController.swift in Sources */,
 				531FD75E1D0AEAB400645DC4 /* AppDelegate.swift in Sources */,
