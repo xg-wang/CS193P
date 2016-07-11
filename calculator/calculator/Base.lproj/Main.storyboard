@@ -6,10 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Calculator-->
+        <!--CalculatorViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="CalculatorViewController" customModule="calculator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="CalculatorViewController" id="BYZ-38-t0r" customClass="CalculatorViewController" customModule="calculator" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -366,10 +366,10 @@
             </objects>
             <point key="canvasLocation" x="1051" y="-544"/>
         </scene>
-        <!--Graph-->
+        <!--GraphViewController-->
         <scene sceneID="vgP-1j-VX7">
             <objects>
-                <viewController id="xAr-QV-u67" customClass="GraphViewController" customModule="calculator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="GraphViewController" id="xAr-QV-u67" customClass="GraphViewController" customModule="calculator" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ITK-3s-g6H"/>
                         <viewControllerLayoutGuide type="bottom" id="8zL-A7-xwn"/>
@@ -377,14 +377,6 @@
                     <view key="view" contentMode="scaleToFill" id="MEi-7Q-2jh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRO-8v-Nmn">
-                                <rect key="frame" x="279" y="289" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="8Gz-EO-O1a"/>
@@ -393,10 +385,10 @@
             </objects>
             <point key="canvasLocation" x="1037" y="146"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Global Split View Controller-->
         <scene sceneID="Pca-jU-ufG">
             <objects>
-                <splitViewController id="GL5-5T-2VX" sceneMemberID="viewController">
+                <splitViewController id="GL5-5T-2VX" customClass="GlobalSplitViewController" customModule="calculator" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="qTc-9o-7wi" kind="relationship" relationship="detailViewController" id="H1g-hN-3l0"/>
                         <segue destination="r1j-u7-to1" kind="relationship" relationship="masterViewController" id="gA3-Cd-EN7"/>
