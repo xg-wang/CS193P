@@ -374,12 +374,34 @@
                         <viewControllerLayoutGuide type="top" id="ITK-3s-g6H"/>
                         <viewControllerLayoutGuide type="bottom" id="8zL-A7-xwn"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="MEi-7Q-2jh">
+                    <view key="view" contentMode="redraw" id="MEi-7Q-2jh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="vuW-ZE-MFw" customClass="GraphView" customModule="calculator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="axesPointsPerUnit">
+                                        <real key="value" value="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vuW-ZE-MFw" firstAttribute="centerX" secondItem="MEi-7Q-2jh" secondAttribute="centerX" id="3cm-Bu-o6B"/>
+                            <constraint firstItem="vuW-ZE-MFw" firstAttribute="top" secondItem="ITK-3s-g6H" secondAttribute="bottom" id="Xhf-LG-HEF"/>
+                            <constraint firstItem="8zL-A7-xwn" firstAttribute="top" secondItem="vuW-ZE-MFw" secondAttribute="bottom" id="gEk-Ig-BLi"/>
+                            <constraint firstItem="vuW-ZE-MFw" firstAttribute="width" secondItem="MEi-7Q-2jh" secondAttribute="width" id="v9v-Ht-ql1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="8Gz-EO-O1a"/>
+                    <connections>
+                        <outlet property="graphNavItem" destination="8Gz-EO-O1a" id="3tI-0c-Bhm"/>
+                        <outlet property="graphView" destination="vuW-ZE-MFw" id="UCl-PL-Szs"/>
+                        <outlet property="viewWrapper" destination="MEi-7Q-2jh" id="zEM-Ly-37T"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GI1-gl-Iwj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -436,6 +458,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="H1g-hN-3l0"/>
+        <segue reference="WtC-nm-Ana"/>
     </inferredMetricsTieBreakers>
 </document>

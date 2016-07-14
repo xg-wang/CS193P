@@ -8,19 +8,38 @@
 
 import UIKit
 
+struct GraphModel {
+    var axesPointsPerUnit: CGFloat
+}
+
 class GraphViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: - Model
+    var graphModel = GraphModel(axesPointsPerUnit: 50.0) {
+        didSet{
+            _updateUI()
+        }
     }
     
+    // MARK: - View
+    @IBOutlet weak var viewWrapper: UIView!
+    @IBOutlet weak var graphNavItem: UINavigationItem!
+    @IBOutlet weak var graphView: GraphView! {
+        didSet{
+            _updateUI()
+        }
+    }
+    
+    // MARK: - Controlls
+    override func viewWillAppear(animated: Bool) {
+    }
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+    }
+    private func _updateUI() {
+        if (graphView != nil) {
+            graphView.axesPointsPerUnit = graphModel.axesPointsPerUnit
+        }
+    }
 
     // MARK: - Navigation
 
