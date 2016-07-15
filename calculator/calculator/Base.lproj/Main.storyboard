@@ -398,14 +398,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="8Gz-EO-O1a"/>
                     <connections>
-                        <outlet property="graphNavItem" destination="8Gz-EO-O1a" id="3tI-0c-Bhm"/>
                         <outlet property="graphView" destination="vuW-ZE-MFw" id="UCl-PL-Szs"/>
-                        <outlet property="viewWrapper" destination="MEi-7Q-2jh" id="zEM-Ly-37T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GI1-gl-Iwj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1037" y="146"/>
+            <point key="canvasLocation" x="1837" y="252"/>
         </scene>
         <!--Global Split View Controller-->
         <scene sceneID="Pca-jU-ufG">
@@ -454,10 +452,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pzF-Qj-a3x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="225" y="146"/>
+            <point key="canvasLocation" x="1051" y="252"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="WtC-nm-Ana"/>
+        <segue reference="H1g-hN-3l0"/>
     </inferredMetricsTieBreakers>
 </document>
