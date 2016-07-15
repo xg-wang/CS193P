@@ -93,7 +93,7 @@
                                                 <color key="backgroundColor" red="0.80392156862745101" green="0.80392156862745101" blue="0.80392156862745101" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="sin"/>
+                                                <state key="normal" title="tan"/>
                                                 <connections>
                                                     <action selector="performOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JQE-Gq-1fS"/>
                                                 </connections>
@@ -456,6 +456,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="H1g-hN-3l0"/>
+        <segue reference="WtC-nm-Ana"/>
     </inferredMetricsTieBreakers>
 </document>

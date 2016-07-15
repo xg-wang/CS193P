@@ -79,6 +79,7 @@ class CalculatorBrain {
         "π"     : Operation.Constant(M_PI),
         "e"     : Operation.Constant(M_E),
         "sin"   : Operation.UnaryOperation(sin),
+        "tan"   : Operation.UnaryOperation(tan),
         "^2"    : Operation.UnaryOperation({ $0 * $0 }),
         "√"     : Operation.UnaryOperation(sqrt),
         "±"     : Operation.UnaryOperation({ -$0 }),

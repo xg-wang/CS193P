@@ -45,16 +45,22 @@ class GraphView: UIView {
             // draw per pixel
             let w = Int(floor(self.bounds.width))
             let originXbyPixel = Int(floor(origin.x))
+            var lastY: CGFloat
             
             brain.variableValues["M"] = Double(Double(0 - originXbyPixel) / Double(axesPointsPerUnit))
-            let start = CGPoint(x: 0.0, y: origin.y - CGFloat(brain.result) * axesPointsPerUnit)
+            lastY = origin.y - CGFloat(brain.result) * axesPointsPerUnit
+            let start = CGPoint(x: 0.0, y: lastY)
             path.moveToPoint(start)
             
             for i in 1..<w {
                 brain.variableValues["M"] = Double(Double(i - originXbyPixel) / Double(axesPointsPerUnit))
-                let curr = CGPoint(x: CGFloat(i), y: origin.y - CGFloat(brain.result) * axesPointsPerUnit)
-                path.addLineToPoint(curr)
-                path.moveToPoint(curr)
+                let currY = origin.y - CGFloat(brain.result) * axesPointsPerUnit
+                let currPoint = CGPoint(x: CGFloat(i), y: currY)
+                if !(lastY < self.bounds.minY || lastY > self.bounds.maxY && abs(Double(currY - lastY)) > Double(self.bounds.height))  {
+                    path.addLineToPoint(currPoint)
+                }
+                path.moveToPoint(currPoint)
+                lastY = currY
             }
             path.lineWidth = lineWidth
         }
