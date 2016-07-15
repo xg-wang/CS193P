@@ -22,22 +22,43 @@ class GraphView: UIView {
     
     @IBInspectable
     var axesPointsPerUnit: CGFloat = 50.0 { didSet { setNeedsDisplay() } }
+    @IBInspectable
+    var lineWidth: CGFloat = 1.0 { didSet { setNeedsDisplay() } }
     
-    var function: CalculatorBrain.PropertyList?
+    var function: CalculatorBrain.PropertyList? {
+        didSet {
+            if function != nil {
+                brain.program = function!
+            }
+            setNeedsDisplay()
+        }
+    }
     private var brain = CalculatorBrain()
 
     
     // Helper Drawer
     private var axesDrawer = AxesDrawer()
     
-    private func drawFunction() {
+    private func pathforFunction(origin: CGPoint) -> UIBezierPath {
+        let path = UIBezierPath()
         if function != nil {
             // draw per pixel
-            let w = self.bounds.width
-            for i in [0...w] {
-                print(i)
+            let w = Int(floor(self.bounds.width))
+            let originXbyPixel = Int(floor(origin.x))
+            
+            brain.variableValues["M"] = Double(Double(0 - originXbyPixel) / Double(axesPointsPerUnit))
+            let start = CGPoint(x: 0.0, y: origin.y - CGFloat(brain.result) * axesPointsPerUnit)
+            path.moveToPoint(start)
+            
+            for i in 1..<w {
+                brain.variableValues["M"] = Double(Double(i - originXbyPixel) / Double(axesPointsPerUnit))
+                let curr = CGPoint(x: CGFloat(i), y: origin.y - CGFloat(brain.result) * axesPointsPerUnit)
+                path.addLineToPoint(curr)
+                path.moveToPoint(curr)
             }
+            path.lineWidth = lineWidth
         }
+        return path
     }
     
     private var originSet = false
@@ -46,7 +67,7 @@ class GraphView: UIView {
         // Drawing code
         let originToDraw = originSet ? axesOrigin : CGPoint(x: self.bounds.width/2, y: self.bounds.height/2)
         axesDrawer.drawAxesInRect(self.bounds, origin: originToDraw, pointsPerUnit: axesPointsPerUnit)
-        drawFunction()
+        pathforFunction(originToDraw).stroke()
     }
 
 }

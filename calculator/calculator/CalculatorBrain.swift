@@ -49,7 +49,7 @@ class CalculatorBrain {
         _descArray.append(variableName)
     }
     var variableValues: Dictionary<String, Double> = [:] {
-        // refresh to urilize the newly set variable
+        // refresh to utilize the newly set variable
         didSet{
             program = _internalProgram
         }
