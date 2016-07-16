@@ -22,6 +22,7 @@ class GraphView: UIView {
     
     @IBInspectable
     var axesPointsPerUnit: CGFloat = 50.0 { didSet { setNeedsDisplay() } }
+    
     @IBInspectable
     var lineWidth: CGFloat = 1.0 { didSet { setNeedsDisplay() } }
     
@@ -33,10 +34,10 @@ class GraphView: UIView {
             setNeedsDisplay()
         }
     }
-    private var brain = CalculatorBrain()
-
     
-    // Helper Drawer
+    // MARK: Private implementation
+    private var brain = CalculatorBrain()
+    
     private var axesDrawer = AxesDrawer()
     
     private func pathforFunction(origin: CGPoint) -> UIBezierPath {
@@ -56,7 +57,8 @@ class GraphView: UIView {
                 brain.variableValues["M"] = Double(Double(i - originXbyPixel) / Double(axesPointsPerUnit))
                 let currY = origin.y - CGFloat(brain.result) * axesPointsPerUnit
                 let currPoint = CGPoint(x: CGFloat(i), y: currY)
-                if !(lastY < self.bounds.minY || lastY > self.bounds.maxY && abs(Double(currY - lastY)) > Double(self.bounds.height))  {
+                if !(lastY < self.bounds.minY || lastY > self.bounds.maxY
+                    && abs(Double(currY - lastY)) > Double(self.bounds.height))  {
                     path.addLineToPoint(currPoint)
                 }
                 path.moveToPoint(currPoint)

@@ -25,8 +25,29 @@ class GraphViewController: UIViewController {
     // MARK: - View
     @IBOutlet weak var graphView: GraphView! {
         didSet{
+            graphView.addGestureRecognizer(UIPinchGestureRecognizer(
+                target: self, action: #selector(GraphViewController.changeScale(_:))
+            ))
+            graphView.addGestureRecognizer(UIPanGestureRecognizer(
+                target: self, action: #selector(GraphViewController.moveGraph(_:))
+            ))
             _updateUI()
         }
+    }
+    
+    // MARK: Gesture handlers
+    func changeScale(recognizer: UIPinchGestureRecognizer) {
+        switch recognizer.state {
+        case .Changed, .Ended:
+            graphView.axesPointsPerUnit *= recognizer.scale
+            recognizer.scale = 1.0
+        default:
+            break
+        }
+    }
+    
+    func moveGraph(recognizer: UIPanGestureRecognizer) {
+        
     }
     
     // MARK: - Controllers
