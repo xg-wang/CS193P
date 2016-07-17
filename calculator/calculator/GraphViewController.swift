@@ -10,13 +10,14 @@ import UIKit
 
 struct GraphModel {
     var axesPointsPerUnit: CGFloat
+    var axesOriginOffsetToCenter: CGPoint
     var function: CalculatorBrain.PropertyList?
 }
 
 class GraphViewController: UIViewController {
     
     // MARK: - Model
-    var graphModel = GraphModel(axesPointsPerUnit: 50.0, function: nil) {
+    var graphModel = GraphModel(axesPointsPerUnit: 50.0, axesOriginOffsetToCenter: CGPoint(), function: nil) {
         didSet{
             _updateUI()
         }
@@ -28,9 +29,17 @@ class GraphViewController: UIViewController {
             graphView.addGestureRecognizer(UIPinchGestureRecognizer(
                 target: self, action: #selector(GraphViewController.changeScale(_:))
             ))
+            
             graphView.addGestureRecognizer(UIPanGestureRecognizer(
                 target: self, action: #selector(GraphViewController.moveGraph(_:))
             ))
+            
+            let doubleTapGestureRecognizer = UITapGestureRecognizer(
+                target: self, action: #selector(GraphViewController.moveOriginTo(_:))
+            )
+            doubleTapGestureRecognizer.numberOfTapsRequired = 2
+            graphView.addGestureRecognizer(doubleTapGestureRecognizer)
+            
             _updateUI()
         }
     }
@@ -47,13 +56,32 @@ class GraphViewController: UIViewController {
     }
     
     func moveGraph(recognizer: UIPanGestureRecognizer) {
-        
+        switch recognizer.state {
+        case .Changed, .Ended:
+            let trans = recognizer.translationInView(graphView)
+            graphView.axesOriginOffsetToCenter.x += trans.x
+            graphView.axesOriginOffsetToCenter.y += trans.y
+            break
+        default:
+            break
+        }
     }
     
-    // MARK: - Controllers
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        
+    func moveOriginTo(recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+        case .Ended:
+            let touchPos = recognizer.locationInView(graphView)
+            graphView.axesOriginOffsetToCenter = CGPoint(
+                x: touchPos.x - graphView.bounds.width/2,
+                y: touchPos.y - graphView.bounds.height/2
+            )
+            break
+        default:
+            break
+        }
     }
+    
+    
     private func _updateUI() {
         if (graphView != nil) {
             graphView.axesPointsPerUnit = graphModel.axesPointsPerUnit

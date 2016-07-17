@@ -13,12 +13,7 @@ class GraphView: UIView {
     
     // MARK: Public API
     @IBInspectable
-    var axesOrigin: CGPoint = CGPoint() {
-        didSet {
-            originSet = true
-            setNeedsDisplay()
-        }
-    }
+    var axesOriginOffsetToCenter: CGPoint = CGPoint() { didSet { setNeedsDisplay() } }
     
     @IBInspectable
     var axesPointsPerUnit: CGFloat = 50.0 { didSet { setNeedsDisplay() } }
@@ -73,9 +68,12 @@ class GraphView: UIView {
 
     override func drawRect(rect: CGRect) {
         // Drawing code
-        let originToDraw = originSet ? axesOrigin : CGPoint(x: self.bounds.width/2, y: self.bounds.height/2)
-        axesDrawer.drawAxesInRect(self.bounds, origin: originToDraw, pointsPerUnit: axesPointsPerUnit)
-        pathforFunction(originToDraw).stroke()
+        let axesOrigin = CGPoint(
+            x: self.bounds.width/2 + axesOriginOffsetToCenter.x,
+            y: self.bounds.height/2 + axesOriginOffsetToCenter.y
+        )
+        axesDrawer.drawAxesInRect(self.bounds, origin: axesOrigin, pointsPerUnit: axesPointsPerUnit)
+        pathforFunction(axesOrigin).stroke()
     }
 
 }

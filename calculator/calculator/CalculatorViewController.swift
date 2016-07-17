@@ -111,7 +111,7 @@ class CalculatorViewController: UIViewController {
                 case "ShowGraph":
                     let function: CalculatorBrain.PropertyList? = brain.isPartialResult ? nil : brain.program
                     let description = brain.isPartialResult ? " " : brain.description
-                    graphvc.graphModel = GraphModel(axesPointsPerUnit: 50.0, function: function)
+                    graphvc.graphModel.function = function
                     graphvc.navigationItem.title = description
                 default:
                     break
