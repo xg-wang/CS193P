@@ -360,6 +360,7 @@
                     <connections>
                         <outlet property="desc" destination="f9w-Kh-M5J" id="nXb-ml-GFp"/>
                         <outlet property="display" destination="0GQ-Bg-VuV" id="dXn-fi-d4a"/>
+                        <outlet property="drawGraphBtn" destination="5di-YB-zR6" id="aWL-8w-Upu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

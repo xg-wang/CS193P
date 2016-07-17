@@ -18,6 +18,7 @@ class CalculatorViewController: UIViewController {
     
     @IBOutlet weak var desc: UILabel!
     @IBOutlet weak private var display: UILabel!
+    @IBOutlet weak var drawGraphBtn: UIButton!
     
     @IBAction private func touchDigit(sender: UIButton) {
         let digit = sender.currentTitle!
@@ -95,6 +96,7 @@ class CalculatorViewController: UIViewController {
         } else {
             desc.text = brainDescString + (brain.isPartialResult ? "..." : " =")
         }
+        drawGraphBtn.enabled = brain.isPartialResult ? false : true
     }
     
     // MARK: - Navigation
