@@ -96,7 +96,7 @@ class CalculatorViewController: UIViewController {
         } else {
             desc.text = brainDescString + (brain.isPartialResult ? "..." : " =")
         }
-        drawGraphBtn.enabled = brain.isPartialResult ? false : true
+        drawGraphBtn.enabled = !brain.isPartialResult
     }
     
     // MARK: - Navigation
