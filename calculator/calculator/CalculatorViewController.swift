@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalculatorViewController: UIViewController {
+class CalculatorViewController: UIViewController, UISplitViewControllerDelegate {
     
     private var _formatter = NSNumberFormatter()
     
@@ -69,7 +69,6 @@ class CalculatorViewController: UIViewController {
         _update()
     }
     
-    // TODO: reduce this!
     @IBAction func callMemory(sender: UIButton) {
         performOperation(sender)
     }
@@ -122,5 +121,35 @@ class CalculatorViewController: UIViewController {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        splitViewController?.delegate = self
+    }
+    
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+        if primaryViewController.contentViewController == self {
+            if let gvc = secondaryViewController.contentViewController as? GraphViewController where gvc.graphModel.function == nil {
+                return true
+            }
+        }
+        return false
+    }
+    
+}
+
+// a little helper extension
+// which either returns the view controller you send it to
+// or, if you send it to a UINavigationController,
+// it returns its visibleViewController
+// (if any, otherwise the UINavigationController itself)
+
+extension UIViewController {
+    var contentViewController: UIViewController {
+        if let navcon = self as? UINavigationController {
+            return navcon.visibleViewController ?? self
+        } else {
+            return self
+        }
+    }
 }
 
