@@ -31,14 +31,26 @@ class TweetTableViewCell: UITableViewCell {
         
         // load new information from our tweet (if any)
         if let tweet = self.tweet {
-            tweetTextLabel?.text = tweet.text
-            if tweetTextLabel?.text != nil {
-                for _ in tweet.media {
-                    tweetTextLabel.text! += " 📷"
-                }
+            let attributedString = NSMutableAttributedString(string: tweet.text)
+            let mentionsAttributes = [NSForegroundColorAttributeName: UIColor.blueColor()]
+            for tag in tweet.hashtags {
+                attributedString.addAttributes(mentionsAttributes, range: tag.nsrange)
+            }
+            for userMention in tweet.userMentions {
+                attributedString.addAttributes(mentionsAttributes, range: userMention.nsrange)
+            }
+            for url in tweet.urls {
+                attributedString.addAttributes(mentionsAttributes, range: url.nsrange)
+            }
+            for _ in tweet.media {
+                attributedString.appendAttributedString(NSAttributedString(string: " 📷"))
             }
             
+            tweetTextLabel?.attributedText = attributedString
+            
+            
             tweetScreenNameLabel?.text = "\(tweet.user.description)"
+            
             
             if let profileImageURL = tweet.user.profileImageURL {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
@@ -54,6 +66,7 @@ class TweetTableViewCell: UITableViewCell {
                     }
                 }
             }
+            
             
             let formatter = NSDateFormatter()
             if NSDate().timeIntervalSinceDate(tweet.created) > 24 * 60 * 60 {
