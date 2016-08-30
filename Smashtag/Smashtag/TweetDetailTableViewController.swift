@@ -74,7 +74,9 @@ class TweetDetailTableViewController: UITableViewController {
     private struct StoryBoard {
         static let imageIdentifier   = "image"
         static let mentionIdentifier = "mention"
+        static let keywordSegueIdentifier = "SearchKeywordSegue"
     }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let mention = mentions[indexPath.section].data[indexPath.row]
         switch mention {
@@ -98,6 +100,31 @@ class TweetDetailTableViewController: UITableViewController {
             return tableView.frame.width / CGFloat(ratio)
         default:
             return UITableViewAutomaticDimension
+        }
+    }
+    
+    // MARK: - Navigation
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == StoryBoard.keywordSegueIdentifier {
+            if let cell = sender as? UITableViewCell {
+                if let url = NSURL(string: cell.textLabel?.text ?? "") where UIApplication.sharedApplication().canOpenURL(url) {
+                    UIApplication.sharedApplication().openURL(url)
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            if identifier == StoryBoard.keywordSegueIdentifier  {
+                if let ttvc = segue.destinationViewController as? TweetTableViewController {
+                    if let cell = sender as? UITableViewCell {
+                        ttvc.searchText = cell.textLabel?.text
+                    }
+                }
+            }
         }
     }
     
