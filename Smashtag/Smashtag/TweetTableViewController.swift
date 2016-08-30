@@ -85,6 +85,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Constants
     private struct StoryBoard {
         static let TweetCellIdentifier = "Tweet"
+        static let ShowMentionsSegueIdentifier = "showTweetDetailSegue"
     }
     
     // MARK: - Outlets
@@ -100,6 +101,36 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         searchText = textField.text
         return true
+    }
+    
+    // MARK: - Navigation
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        if identifier == StoryBoard.ShowMentionsSegueIdentifier {
+            if let tweetCell = sender as? TweetTableViewCell {
+                if (tweetCell.tweet!.hashtags.count +
+                    tweetCell.tweet!.urls.count +
+                    tweetCell.tweet!.userMentions.count +
+                    tweetCell.tweet!.media.count == 0) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let desvc = segue.destinationViewController as? TweetDetailTableViewController {
+            if let identifier = segue.identifier {
+                switch identifier {
+                case StoryBoard.ShowMentionsSegueIdentifier:
+                    if let cell = sender as? TweetTableViewCell {
+                        desvc.tweet = cell.tweet
+                    }
+                default:
+                    break
+                }
+            }
+        }
     }
     
     // MARK: - View Controller Lifecycle

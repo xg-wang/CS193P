@@ -16,11 +16,7 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var tweetCreatedLabel: UILabel!
     @IBOutlet weak var tweetProfileImageView: UIImageView!
 
-    var tweet: Twitter.Tweet? {
-        didSet{
-            _updateUI()
-        }
-    }
+    var tweet: Twitter.Tweet? { didSet{ _updateUI() } }
     
     private func _updateUI() {
         // reset any existing tweet information
