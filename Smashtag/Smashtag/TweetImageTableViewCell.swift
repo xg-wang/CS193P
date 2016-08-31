@@ -12,6 +12,7 @@ class TweetImageTableViewCell: UITableViewCell {
     
     // MARK - Model
     var imageUrl: NSURL? { didSet { updateUI() } }
+    var imageData: UIImage? { return tweetImage.image }
     
     @IBOutlet weak var tweetImage: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!

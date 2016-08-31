@@ -111,7 +111,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yzo-cp-fdM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1938" y="321"/>
+            <point key="canvasLocation" x="1844" y="321"/>
         </scene>
         <!--Tweet Detail-->
         <scene sceneID="Q9z-fK-jxQ">
@@ -148,6 +148,7 @@
                                 <connections>
                                     <outlet property="spinner" destination="5Xm-yE-pzd" id="a7W-dI-Ihd"/>
                                     <outlet property="tweetImage" destination="a8U-lM-Q8U" id="gKu-59-M4s"/>
+                                    <segue destination="IyM-Hc-J9m" kind="show" identifier="ShowImageSegue" id="KGg-2K-Qdb"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mention" textLabel="j2C-ug-nH4" style="IBUITableViewCellStyleDefault" id="DxJ-eu-buQ" customClass="TweetMentionTableViewCell" customModule="Smashtag" customModuleProvider="target">
@@ -180,7 +181,45 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MUO-pa-Vm2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688" y="321"/>
+            <point key="canvasLocation" x="1126" y="1097"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="bIz-R5-tUZ">
+            <objects>
+                <viewController id="IyM-Hc-J9m" customClass="ImageViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gRw-Cw-i06"/>
+                        <viewControllerLayoutGuide type="bottom" id="Kjo-xh-0UZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UxC-YG-Qpw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="u1Y-0y-eNg">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z2F-Rd-Una">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="u1Y-0y-eNg" firstAttribute="centerY" secondItem="UxC-YG-Qpw" secondAttribute="centerY" id="05q-tR-774"/>
+                            <constraint firstItem="u1Y-0y-eNg" firstAttribute="centerX" secondItem="UxC-YG-Qpw" secondAttribute="centerX" id="Fs3-si-dUy"/>
+                            <constraint firstItem="z2F-Rd-Una" firstAttribute="top" secondItem="gRw-Cw-i06" secondAttribute="bottom" id="UZV-A2-iI9"/>
+                            <constraint firstAttribute="trailing" secondItem="z2F-Rd-Una" secondAttribute="trailing" id="aAq-va-rrv"/>
+                            <constraint firstItem="z2F-Rd-Una" firstAttribute="leading" secondItem="UxC-YG-Qpw" secondAttribute="leading" id="mVv-e4-VVc"/>
+                            <constraint firstItem="Kjo-xh-0UZ" firstAttribute="top" secondItem="z2F-Rd-Una" secondAttribute="bottom" id="tqH-Tz-tRw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="z2F-Rd-Una" id="3oP-3L-cHT"/>
+                        <outlet property="spinner" destination="u1Y-0y-eNg" id="XwJ-e6-HPB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sXb-SD-w7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1844" y="1097"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="48r-Em-DvA">

@@ -72,9 +72,10 @@ class TweetDetailTableViewController: UITableViewController {
     }
     
     private struct StoryBoard {
-        static let imageIdentifier   = "image"
-        static let mentionIdentifier = "mention"
-        static let keywordSegueIdentifier = "SearchKeywordSegue"
+        static let imageIdentifier          = "image"
+        static let mentionIdentifier        = "mention"
+        static let keywordSegueIdentifier   = "SearchKeywordSegue"
+        static let imageSegueIdentifier     = "ShowImageSegue"
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -118,25 +119,28 @@ class TweetDetailTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
-            if identifier == StoryBoard.keywordSegueIdentifier  {
+            switch identifier {
+            case StoryBoard.keywordSegueIdentifier:
                 if let ttvc = segue.destinationViewController as? TweetTableViewController {
                     if let cell = sender as? UITableViewCell {
                         ttvc.searchText = cell.textLabel?.text
                     }
                 }
+            case StoryBoard.imageSegueIdentifier:
+                if let imgvc = segue.destinationViewController as? ImageViewController {
+                    if let cell = sender as? TweetImageTableViewCell {
+                        if let img = cell.tweetImage.image {
+                            imgvc.image = img
+                        } else {
+                            imgvc.imageURL = cell.imageUrl
+                        }
+                        imgvc.title = title
+                    }
+                }
+            default:
+                break
             }
         }
-    }
-    
-    // MARK: - View Controller Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
 }
