@@ -53,9 +53,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                         } else {
                             self.spinner?.stopAnimating()
                         }
-                    } else {
-                        // just so you can see in the console when this happens
-                        print("ignored data returned from url \(url)")
                     }
                 }
             }
@@ -72,7 +69,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             // are necessary to make zooming work
             scrollView.delegate = self
             scrollView.minimumZoomScale = 0.03
-            scrollView.maximumZoomScale = 1.0
+            scrollView.maximumZoomScale = 5.0
         }
     }
     
@@ -85,11 +82,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     private var imageView = UIImageView()
     
-    // a little helper var
-    // it just makes sure things are kept in sync
-    // whenever we change the image we're displaying
-    // it's purely to make our code look prettier elsewhere in this class
-    
     var image: UIImage? {
         get {
             return imageView.image
@@ -99,6 +91,30 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
             spinner?.stopAnimating()
+            autoScale()
+        }
+    }
+    
+    private var scrollViewDidScrollOrZoom = false
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        scrollViewDidScrollOrZoom = true
+    }
+    
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        scrollViewDidScrollOrZoom = true
+    }
+    private func autoScale() {
+        if scrollViewDidScrollOrZoom {
+            return
+        }
+        if let sv = scrollView {
+            if image != nil {
+                sv.zoomScale = max(sv.bounds.size.height / image!.size.height,
+                                   sv.bounds.size.width / image!.size.width)
+                sv.contentOffset = CGPoint(x: (imageView.frame.size.width - sv.frame.size.width) / 2,
+                                           y: (imageView.frame.size.height - sv.frame.size.height) / 2)
+                scrollViewDidScrollOrZoom = false
+            }
         }
     }
     
@@ -122,5 +138,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.addSubview(imageView)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        autoScale()
     }
 }
