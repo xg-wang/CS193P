@@ -11,13 +11,13 @@ import Foundation
 class RecentSearch {
     
     private struct Constants {
-        static let ValueKey = "RecentSearch.Values"
+        static let ValueKey = "RecentSearch.values"
         static let MaxSearches = 100
     }
     
     private let userDefault = NSUserDefaults.standardUserDefaults()
     
-    var Values: [String] {
+    var values: [String] {
         get {
             return userDefault.stringArrayForKey(Constants.ValueKey) ?? []
         }
@@ -27,7 +27,7 @@ class RecentSearch {
     }
     
     func addSearchTerm(searchTerm: String) {
-        var currentSearchValues = Values
+        var currentSearchValues = values
         if let index = currentSearchValues.indexOf(searchTerm) {
             currentSearchValues.removeAtIndex(index)
         }
@@ -35,7 +35,13 @@ class RecentSearch {
         while currentSearchValues.count > Constants.MaxSearches {
             currentSearchValues.removeLast()
         }
-        Values = currentSearchValues
+        values = currentSearchValues
+    }
+    
+    func removeAtIndex(index: Int) {
+        var currentSearches = values
+        currentSearches.removeAtIndex(index)
+        values = currentSearches
     }
     
 }
