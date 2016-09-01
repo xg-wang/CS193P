@@ -28,7 +28,7 @@ class TweetDetailTableViewController: UITableViewController {
                 mentions.append(Mentions(title: "Urls",
                     data: urls.map { MentionItem.Keyword($0.keyword) }))
             }
-            if let userMentions = tweet?.hashtags where userMentions.count > 0 {
+            if let userMentions = tweet?.userMentions where userMentions.count > 0 {
                 mentions.append(Mentions(title: "UserMentions",
                     data: userMentions.map { MentionItem.Keyword($0.keyword) }))
             }

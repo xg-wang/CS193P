@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53286AB71D77EC3D00062D27 /* CoreDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53286AB61D77EC3D00062D27 /* CoreDataTableViewController.swift */; };
 		5339D8F01D76FD4E00A53DCE /* RecentSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5339D8EF1D76FD4E00A53DCE /* RecentSearchTableViewController.swift */; };
 		5339D8F41D76FE3E00A53DCE /* RecentSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5339D8F31D76FE3E00A53DCE /* RecentSearch.swift */; };
 		53427E631D769D5C00926417 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53427E621D769D5C00926417 /* ImageViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53286AB61D77EC3D00062D27 /* CoreDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTableViewController.swift; sourceTree = "<group>"; };
 		5339D8EF1D76FD4E00A53DCE /* RecentSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearchTableViewController.swift; sourceTree = "<group>"; };
 		5339D8F31D76FE3E00A53DCE /* RecentSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearch.swift; sourceTree = "<group>"; };
 		53427E621D769D5C00926417 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 		53F9CFCB1D4DFB9000295DBF /* Smashtag */ = {
 			isa = PBXGroup;
 			children = (
+				53286AB61D77EC3D00062D27 /* CoreDataTableViewController.swift */,
 				53F9CFD01D4DFB9000295DBF /* Main.storyboard */,
 				53D438311D62A3F4004D4E98 /* TweetImageTableViewCell.swift */,
 				53D4382B1D606853004D4E98 /* TweetDetailTableViewController.swift */,
@@ -295,6 +298,7 @@
 				53427E631D769D5C00926417 /* ImageViewController.swift in Sources */,
 				5339D8F01D76FD4E00A53DCE /* RecentSearchTableViewController.swift in Sources */,
 				53EC5F031D524EC9000880CD /* TweetTableViewCell.swift in Sources */,
+				53286AB71D77EC3D00062D27 /* CoreDataTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
