@@ -8,9 +8,14 @@
 
 import UIKit
 import Twitter
+import CoreData
 
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
+    
     // MARK - Model
+    var managedObjectContext: NSManagedObjectContext? =
+        (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
+    
     var tweets = [Array<Twitter.Tweet>]() {
         didSet {
             tableView.reloadData()
@@ -46,12 +51,23 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                 dispatch_async(dispatch_get_main_queue()) {
                     if !newTweets.isEmpty {
                         weakSelf?.tweets.insert(newTweets, atIndex: 0)
+                        weakSelf?.updateDatabase(newTweets)
                     }
                     weakSelf?.refreshControl?.endRefreshing()
                 }
             }
         } else {
             self.refreshControl?.endRefreshing()
+        }
+    }
+    
+    private func updateDatabase(newTweets: [Twitter.Tweet]) {
+        managedObjectContext?.performBlock {
+            for twitterInfo in newTweets {
+                // TODO!
+//                _ = CDTweet.tweetWithTwitterInfo(twitterInfo, inManagedObjectContext: self.managedObjectContext!)
+            }
+            (UIApplication.sharedApplication().delegate as? AppDelegate)?.saveContext()
         }
     }
     

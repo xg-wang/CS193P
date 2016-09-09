@@ -20,7 +20,8 @@ class RecentSearchTableViewController: UITableViewController {
     
     private struct StoryBoard {
         static let cellIdentifier = "RecentSearchTerm"
-        static let segueIdentifier = "ShowHistorySearchSegue"
+        static let showSegueIdentifier = "ShowHistorySearchSegue"
+        static let disclosureIdentifier = "DiscloseDetailSegue"
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,10 +48,16 @@ class RecentSearchTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier where identifier == StoryBoard.segueIdentifier {
+        if let identifier = segue.identifier where identifier == StoryBoard.showSegueIdentifier {
             if let ttvc = segue.destinationViewController as? TweetTableViewController {
                 if let cell = sender as? UITableViewCell {
                     ttvc.searchText = cell.textLabel?.text
+                }
+            }
+        } else if let identifier = segue.identifier where identifier == StoryBoard.disclosureIdentifier {
+            if let mpvc = segue.destinationViewController as? MentionPopularityViewController {
+                if let cell = sender as? UITableViewCell {
+                    mpvc.searchText = cell.textLabel?.text
                 }
             }
         }
