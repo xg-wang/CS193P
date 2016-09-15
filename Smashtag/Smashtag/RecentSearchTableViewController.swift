@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class RecentSearchTableViewController: UITableViewController {
 
+    // MARK: - Model
+    var managedObjectContext: NSManagedObjectContext? =
+        (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
+    
     // MARK: - Life Cycle
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,6 +63,7 @@ class RecentSearchTableViewController: UITableViewController {
             if let mpvc = segue.destinationViewController as? MentionPopularityViewController {
                 if let cell = sender as? UITableViewCell {
                     mpvc.searchText = cell.textLabel?.text
+                    mpvc.managedObjectContext = managedObjectContext
                 }
             }
         }

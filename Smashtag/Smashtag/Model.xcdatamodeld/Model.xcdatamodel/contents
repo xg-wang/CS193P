@@ -3,14 +3,20 @@
     <entity name="CDMention" representedClassName=".CDTweet" syncable="YES">
         <attribute name="count" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="keyword" attributeType="String" syncable="YES"/>
-        <relationship name="tweets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTweet" inverseName="mentions" inverseEntity="CDTweet" syncable="YES"/>
+        <relationship name="term" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSearchTerm" inverseName="mentions" inverseEntity="CDSearchTerm" syncable="YES"/>
+    </entity>
+    <entity name="CDSearchTerm" representedClassName=".CDSearchTerm" syncable="YES">
+        <attribute name="term" attributeType="String" syncable="YES"/>
+        <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDMention" inverseName="term" inverseEntity="CDMention" syncable="YES"/>
+        <relationship name="tweets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTweet" inverseName="terms" inverseEntity="CDTweet" syncable="YES"/>
     </entity>
     <entity name="CDTweet" representedClassName=".CDTweet" syncable="YES">
         <attribute name="uniqueId" attributeType="String" syncable="YES"/>
-        <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDMention" inverseName="tweets" inverseEntity="CDMention" syncable="YES"/>
+        <relationship name="terms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDSearchTerm" inverseName="tweets" inverseEntity="CDSearchTerm" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CDMention" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="CDTweet" positionX="-351" positionY="-120" width="128" height="75"/>
+        <element name="CDMention" positionX="-1872" positionY="108" width="128" height="88"/>
+        <element name="CDTweet" positionX="-2160" positionY="6" width="128" height="73"/>
+        <element name="CDSearchTerm" positionX="-2160" positionY="171" width="128" height="88"/>
     </elements>
 </model>

@@ -13,14 +13,29 @@ import Twitter
 
 class CDMention: NSManagedObject {
 
-    class func mentionWithMentionInfo(mentionInfo: Mention, inManagedObjectContext context: NSManagedObjectContext) -> CDMention? {
+    class func mentionWithTwitterInfo(twitterInfo: Tweet,
+                                      withSearchTerm search: String,
+                                      inManagedObjectContext context: NSManagedObjectContext) -> CDMention? {
+        
+        
+    }
+    
+    class func addMentionWithKeyword() {
         let request = NSFetchRequest(entityName: "CDMention")
+        // TODO!
+                                        
         request.predicate = NSPredicate(format: "keyword = %@", mentionInfo.keyword)
         
         if let mention = (try? context.executeFetchRequest(request))?.first as? CDMention {
+            if let uniqueIds = mention.tweets?.allObjects as? [String] where !(uniqueIds.contains(tweet.id)) {
+                mention.tweets?.setByAddingObject(CDTweet.tweetWithTwitterInfo(tweet, inManagedObjectContext: context))
+                mention.count += 1
+            }
             return mention
         } else if let mention = NSEntityDescription.insertNewObjectForEntityForName("CDMention", inManagedObjectContext: context) as? CDMention {
             mention.keyword = mentionInfo.keyword
+            mention.count = 1
+            mention.tweets?.setByAddingObject(CDTweet.tweetWithTwitterInfo(tweet, withSearchTerm: search, inManagedObjectContext: context))
             return mention
         }
         

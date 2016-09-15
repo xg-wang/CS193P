@@ -1,5 +1,5 @@
 //
-//  CDTweet+CoreDataProperties.swift
+//  CDSearchTerm+CoreDataProperties.swift
 //  Smashtag
 //
 //  Created by Xingan Wang on 9/11/16.
@@ -12,10 +12,10 @@
 import Foundation
 import CoreData
 
-extension CDMention {
+extension CDSearchTerm {
 
-    @NSManaged var count: NSNumber?
-    @NSManaged var keyword: String?
-    @NSManaged var term: CDSearchTerm?
+    @NSManaged var term: String
+    @NSManaged var mentions: NSSet?
+    @NSManaged var tweets: NSSet?
 
 }

@@ -2,7 +2,7 @@
 //  CDTweet+CoreDataProperties.swift
 //  Smashtag
 //
-//  Created by Xingan Wang on 9/9/16.
+//  Created by Xingan Wang on 9/11/16.
 //  Copyright © 2016 Xingan Wang. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,7 +14,7 @@ import CoreData
 
 extension CDTweet {
 
-    @NSManaged var uniqueId: String
-    @NSManaged var mentions: NSSet?
+    @NSManaged var uniqueId: String?
+    @NSManaged var terms: NSSet?
 
 }
