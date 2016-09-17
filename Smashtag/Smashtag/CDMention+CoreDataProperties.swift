@@ -14,8 +14,8 @@ import CoreData
 
 extension CDMention {
 
-    @NSManaged var count: NSNumber?
-    @NSManaged var keyword: String?
+    @NSManaged var count: NSNumber
+    @NSManaged var keyword: String
     @NSManaged var term: CDSearchTerm?
 
 }

@@ -18,7 +18,7 @@ class CDTweet: NSManagedObject {
                                     inManagedObjectContext context: NSManagedObjectContext)
                                     -> CDTweet? {
         let request = NSFetchRequest(entityName: "CDTweet")
-        request.predicate = NSPredicate(format: "any terms.term contains[c]%@ and uniqueId = %@", search, twitterInfo.id)
+        request.predicate = NSPredicate(format: "any terms.term contains[c] %@ and uniqueId = %@", search, twitterInfo.id)
         
         if let tweet = (try? context.executeFetchRequest(request))?.first as? CDTweet {
             return tweet
@@ -27,7 +27,7 @@ class CDTweet: NSManagedObject {
             tweet.uniqueId = twitterInfo.id
             let terms = tweet.mutableSetValueForKey("terms")
             terms.addObject(term)
-            _ = CDMention.mentionWithTwitterInfo(twitterInfo, withSearchTerm: search, inManagedObjectContext: context)
+            _ = CDMention.mentionOfTwitterInfoWithSearchTerm(twitterInfo, withSearchTerm: search, inManagedObjectContext: context)
             return tweet
         }
         
