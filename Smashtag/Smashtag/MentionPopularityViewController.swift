@@ -33,7 +33,7 @@ class MentionPopularityViewController: CoreDataTableViewController {
         
         if let mention = fetchedResultsController?.objectAtIndexPath(indexPath) as? CDMention {
             var keyword: String?
-            var count: Int16?
+            var count: Int16 = 0
             mention.managedObjectContext?.performBlockAndWait {
                 keyword = mention.keyword
                 count = mention.count.shortValue
