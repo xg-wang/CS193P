@@ -64,7 +64,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     private func updateDatabase(newTweets: [Twitter.Tweet]) {
         managedObjectContext?.performBlock {
             for twitterInfo in newTweets {
-                _ = CDTweet.tweetWithTwitterInfo(twitterInfo, withSearchTerm: searchText!, inManagedObjectContext: managedObjectContext)
+                _ = CDTweet.tweetWithTwitterInfo(twitterInfo, withSearchTerm: self.searchText!, inManagedObjectContext: self.managedObjectContext!)
             }
             (UIApplication.sharedApplication().delegate as? AppDelegate)?.saveContext()
         }

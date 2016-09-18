@@ -27,7 +27,7 @@ class CDTweet: NSManagedObject {
             tweet.uniqueId = twitterInfo.id
             let terms = tweet.mutableSetValueForKey("terms")
             terms.addObject(term)
-            _ = CDMention.mentionOfTwitterInfoWithSearchTerm(twitterInfo, withSearchTerm: search, inManagedObjectContext: context)
+            _ = CDMention.mentionWithTwitterInfo(twitterInfo, withSearchTerm: search, inManagedObjectContext: context)
             return tweet
         }
         

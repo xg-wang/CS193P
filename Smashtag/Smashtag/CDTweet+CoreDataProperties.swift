@@ -14,7 +14,7 @@ import CoreData
 
 extension CDTweet {
 
-    @NSManaged var uniqueId: String?
+    @NSManaged var uniqueId: String
     @NSManaged var terms: NSSet?
 
 }

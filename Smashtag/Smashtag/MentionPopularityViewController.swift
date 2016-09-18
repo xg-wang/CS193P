@@ -15,18 +15,34 @@ class MentionPopularityViewController: CoreDataTableViewController {
     var managedObjectContext: NSManagedObjectContext? { didSet { _updateUI() } }
     
     private func _updateUI() {
-        guard let
-            search = searchText,
-            context = managedObjectContext else {
+        guard let context = managedObjectContext where searchText?.characters.count > 0 else {
                 fetchedResultsController = nil
+                return
         }
-        // TODO!
         let request = NSFetchRequest(entityName: "CDMention")
-        request.predicate = NSPredicate(format: "tweets.searchTerm contains[c] %@ and count > %@", searchText, "1")
+        request.predicate = NSPredicate(format: "term.term contains[c] %@ and count > %@", searchText!, "1")
         request.sortDescriptors = [
             NSSortDescriptor(key: "count", ascending: false),
             NSSortDescriptor(key: "keyword", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
         ]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("MentionCell", forIndexPath: indexPath)
+        
+        if let mention = fetchedResultsController?.objectAtIndexPath(indexPath) as? CDMention {
+            var keyword: String?
+            var count: Int16?
+            mention.managedObjectContext?.performBlockAndWait {
+                keyword = mention.keyword
+                count = mention.count.shortValue
+            }
+            cell.textLabel?.text = keyword
+            cell.detailTextLabel?.text = "\(count) tweets mentioned"
+        }
+        
+        return cell
     }
     
 }

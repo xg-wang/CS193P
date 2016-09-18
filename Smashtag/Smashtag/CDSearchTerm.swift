@@ -18,7 +18,7 @@ class CDSearchTerm: NSManagedObject {
         
         if let search = (try? context.executeFetchRequest(request))?.first as? CDSearchTerm {
             return search
-        } else if let search = NSEntityDescription.insertNewObjectForEntityForName(term, inManagedObjectContext: context) as? CDSearchTerm {
+        } else if let search = NSEntityDescription.insertNewObjectForEntityForName("CDSearchTerm", inManagedObjectContext: context) as? CDSearchTerm {
             search.term = term
             return search
         }

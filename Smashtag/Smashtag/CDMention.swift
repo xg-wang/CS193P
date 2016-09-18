@@ -13,7 +13,7 @@ import Twitter
 
 class CDMention: NSManagedObject {
 
-    class func mentionOfTwitterInfoWithSearchTerm(twitterInfo: Tweet,
+    class func mentionWithTwitterInfo(twitterInfo: Tweet,
                                                   withSearchTerm searchText: String,
                                                   inManagedObjectContext context: NSManagedObjectContext) {
         for hashtag in twitterInfo.hashtags {
